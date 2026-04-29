@@ -2,10 +2,10 @@
 :root {
     --cf-black: #1E252A;
     --cf-white: #FFFFFF;
-    --cf-brand-primary: #E6007E;
+    --cf-brand-primary: #e52f42;
     --cf-brand-secondary: #283138;
     --cf-navy-blue: #012B63;
-    --cf-dark-pink: #CC197A;
+    --cf-dark-pink: #d82f40;
     --cf-light-blue: #2675EA;
     --cf-turquoise: #56D8C8;
     --cf-light-purple-gray: #E7E5F1;
@@ -88,6 +88,7 @@ header {
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #FFFFFF;
 }
 
 .header-inner {
@@ -121,7 +122,7 @@ header {
 
 /* ===== Hero ===== */
 .hero {
-    background: linear-gradient(135deg, var(--cf-navy-blue) 0%, #05214a 100%);
+    background: linear-gradient(15deg, var(--cf-navy-blue) 0%, #031b3d 100%);
     color: var(--cf-white);
     padding: 80px 0 70px;
 }
@@ -161,7 +162,7 @@ header {
 .hero-image img {
     width: 100%;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    /* box-shadow: 0 20px 40px rgba(0,0,0,0.2); */
 }
 
 @media (max-width: 768px) {
@@ -175,45 +176,79 @@ header {
     .hero-image {
         order: -1;
     }
-    .hero-image img {
+    /* .hero-image img {
         max-height: 300px;
         object-fit: cover;
+    } */
+    .hero-image img {
+        height: auto;
+        max-height: none;
+        object-fit: contain;
     }
     .hero-content h1 {
         font-size: clamp(2rem, 8vw, 2.8rem);
+        
     }
 }
 
+
 /* ===== Trust Bar ===== */
-.trust-bar {
-    background-color: var(--cf-white);
+.trust-bar{
+    background-color: #F1F5F9;
     padding: 30px 0;
     text-align: center;
-    border-bottom: 1px solid var(--cf-light-purple-gray);
+    border-bottom: 1px solid var(--cf-brand-secondary);
+    overflow: hidden;
 }
 
 .trust-bar p {
     color: #64748B;
     font-size: 0.9rem;
-    margin-bottom: 12px;
-    font-weight: 500;
+    margin-bottom: 20px;
+    font-weight: 900;
     letter-spacing: 0.5px;
 }
 
-.trust-logos {
+/* SLIDER CONTAINER */
+.trust-slider {
+    overflow: hidden;
+    position: relative;
+}
+
+/* TRACK (this moves) */
+.trust-track {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 40px;
+    width: max-content;
+    gap: 60px;
+    animation: scroll 25s linear infinite;
 }
 
-.trust-logo-text {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #64748B;
-    letter-spacing: 0.5px;
+/* LOGOS */
+.trust-track img {
+    height: 30px;
     opacity: 0.7;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.trust-track img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* ANIMATION */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* PAUSE ON HOVER (premium feel) */
+.trust-slider:hover .trust-track {
+    animation-play-state: paused;
 }
 
 /* ===== Sections ===== */
@@ -451,7 +486,7 @@ header {
 }
 
 .testimonial-text::before {
-    content: "â€œ";
+    content: "\201C";
     font-size: 3rem;
     color: var(--cf-brand-primary);
     position: absolute;
@@ -639,10 +674,211 @@ footer {
 
 .sticky-mobile-cta .btn {
     width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 14px;
 }
 
 @media (max-width: 768px) {
     .sticky-mobile-cta {
         display: block;
+    }
+}
+
+/* =========================
+   MOBILE OPTIMISATION FIXES
+   ========================= */
+
+   @media (max-width: 768px) {
+
+    .header-inner {
+        justify-content: center;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .logo img {
+        margin: 0 auto;
+    }
+
+    /* OPTIONAL: hide CTA to keep balance (you already do this, but keep it safe) */
+    .header-cta {
+        display: none;
+    }
+
+    /* ===== GLOBAL SPACING ===== */
+    .section {
+        padding: 50px 0;
+    }
+
+    body {
+        font-size: 15px;
+    }
+
+    /* ===== HERO FIX ===== */
+    .hero {
+        padding: 20px 0 100px;
+    }
+
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        margin: 0 auto 16px;
+        max-width: 95%;
+        font-size: 1rem;
+        color: rgba(255,255,255,0.85);
+    }
+
+    .hero-content .btn {
+        margin-top: 6px;
+    }
+
+    /* FIX HERO IMAGE CROPPING */
+    .hero-image {
+        order: -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+
+     /* CONTROL IMAGE HEIGHT (PREVENT BIG EMPTY SPACING) */
+     .hero-image img {
+        width: 100%;
+        /* max-width: 320px; */
+        height: auto;
+        /* max-height: 240px; */
+        object-fit: contain;
+        display: block;
+        margin-top: -20px;
+    }
+
+    /* .hero-image img {
+        max-height: auto;
+        width: auto;
+        object-fit: contain;
+    } */
+
+    /* ===== TRUST BAR ===== */
+    .trust-track {
+        gap: 30px;
+    }
+
+    .trust-track img {
+        height: 22px;
+    }
+
+    /* ===== HEADINGS ===== */
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    /* ===== TWO COLUMN → SINGLE COLUMN ===== */
+    .two-col {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .two-col p {
+        text-align: center;
+    }
+
+    .bullet-list {
+        text-align: left;
+        display: inline-block;
+    }
+
+    /* ===== BENEFITS ===== */
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .benefit-card {
+        text-align: center;
+    }
+
+    .benefit-card p {
+        margin: 0 16px 20px;
+    }
+
+    /* ===== STEPS ===== */
+    .steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .step p {
+        font-size: 0.9rem;
+    }
+
+    /* ===== CASE STUDIES ===== */
+    .case-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ===== FORM ===== */
+    .form-container {
+        padding: 28px 18px;
+    }
+
+    .form-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        font-size: 0.95rem;
+    }
+
+    /* ===== TESTIMONIAL ===== */
+    .testimonial-text {
+        font-size: 1rem;
+    }
+
+    /* ===== CTA BUTTONS ===== */
+    .btn {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* ===== STICKY CTA IMPROVEMENT ===== */
+    .sticky-mobile-cta {
+        padding: 10px 16px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+        background-color: rgba(1, 43, 99, 0.95);
+        backdrop-filter: blur(8px);
+    }
+
+    .sticky-mobile-cta .btn {
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 10px;
     }
 }
