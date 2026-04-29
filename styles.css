@@ -326,7 +326,7 @@ header {
 
 /* ===== Benefits ===== */
 .benefits-section {
-    background-color: var(--cf-very-light-purple-gray);
+    background-color: #CBD5E1;
 }
 
 .benefits-grid {
@@ -393,7 +393,7 @@ header {
     flex: 1 1 280px;
     max-width: 320px;
     text-align: center;
-    background: var(--cf-light-purple-gray);
+    background: var(--cf-navy-blue);
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.2s;
@@ -438,18 +438,19 @@ header {
 
 .step h4 {
     margin: 0 20px 8px;
-    color: var(--cf-navy-blue);
+    color: var(--cf-light-purple-gray);
 }
 
 .step p {
-    color: var(--cf-brand-secondary);
+    color: var(--cf-cream);
     font-size: 0.95rem;
+    font-weight: 200;
     margin: 0 20px 24px;
 }
 
 /* ===== Testimonial ===== */
 .testimonial-section {
-    background-color: var(--cf-light-purple-gray);
+    background-color: #CBD5E1;
 }
 
 .testimonial-card {
@@ -679,6 +680,44 @@ footer {
     padding: 14px;
 }
 
+.scroll-to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--cf-brand-primary);
+    color: var(--cf-white);
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease;
+    z-index: 110;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top:hover {
+    background-color: var(--cf-dark-pink);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .sticky-mobile-cta {
         display: block;
@@ -832,10 +871,15 @@ footer {
     .step {
         width: 100%;
         max-width: 100%;
+        padding-bottom: 24px;
     }
 
     .step p {
         font-size: 0.9rem;
+    }
+
+    .how-it-works {
+        padding-bottom: 50px;
     }
 
     /* ===== CASE STUDIES ===== */
