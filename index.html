@@ -18,7 +18,7 @@
         <div class="container header-inner">
             <!-- <a href="#" class="logo">The CFO <span>Centre</span></a> -->
             <a href="/" class="logo">
-                <img src="Assets\Logo\ofco-outsourced-cfo-logo-red-white.png" alt="The CFO Centre Logo" width="180" height="auto">
+                <img src="Assets\Logo\ocfo-outsourced-cfo-logo-red-white.png" alt="The CFO Centre Logo" width="180" height="auto">
             </a>
             <div class="header-cta">
                 <a href="#form" class="btn btn-primary">Get Financial Clarity</a>
@@ -215,8 +215,10 @@
     <section class="section form-section" id="form">
         <div class="container">
             <div class="form-container">
-                <h2>Financial Clarity Starts Here</h2>
-                <p>Book a free session with a senior CFO advisor and gain clarity on your business finances.</p>
+                <div id="checkInIntro">
+                    <h2>Start With a Quick Check-In</h2>
+                    <p>We’ll get in touch for a short check-in call to understand your business and walk you through the next steps.</p>
+                </div>
                 <form id="leadForm">
                     <div class="form-group">
                         <label for="name">Full Name *</label>
@@ -227,27 +229,22 @@
                         <input type="email" id="email" name="email" placeholder="john@company.com" required>
                     </div>
                     <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required pattern="[0-9()+\-\s]{7,}">
+                    </div>
+                    <div class="form-group">
                         <label for="company">Company Name</label>
                         <input type="text" id="company" name="company" placeholder="Acme Inc.">
                     </div>
+                        <!-- Annual Revenue field removed -->
                     <div class="form-group">
-                        <label for="revenue">Annual Revenue</label>
-                        <select id="revenue" name="revenue">
-                            <option value="" disabled selected>Select range...</option>
-                            <option value="<1M">Less than $1M</option>
-                            <option value="1-5M">$1M - $5M</option>
-                            <option value="5-20M">$5M - $20M</option>
-                            <option value="20M+">$20M+</option>
-                        </select>
+                        <button type="submit" class="btn btn-primary btn-block">Request Check-In</button>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Get Financial Clarity</button>
-                    </div>
-                    <p class="privacy-note">We respect your privacy. No spam, ever.</p>
+                    <p class="privacy-note">No spam. No obligation. Just a quick, focused conversation.</p>
                 </form>
                 <div id="thankYouMessage" class="thank-you" style="display:none;">
                     <h3>Thank you!</h3>
-                    <p>We'll reach out within one business day to schedule your discovery call.</p>
+                    <p>We’ve received your details. You’ll hear from us shortly to schedule your check-in call.</p>
                 </div>
             </div>
         </div>
