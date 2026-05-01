@@ -31,7 +31,9 @@ html {
 }
 
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* font-family: 'Inter', system-ui, -apple-system, sans-serif; */
+    font-family: montserrat, open-sans, system-ui, -apple-system, sans-serif;
+    font-weight: 400;
     background-color: var(--cf-body-bg);
     color: var(--cf-body-color);
     line-height: 1.6;
