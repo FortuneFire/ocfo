@@ -20,24 +20,92 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
 
             const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn.disabled) return; // prevent double click
+
             submitBtn.disabled = true;
-            submitBtn.innerText = 'Submitting...';
+            submitBtn.innerHTML = 'Submitting... ⏳';
 
             try {
-                await new Promise(resolve => setTimeout(resolve, 800));
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                // 🔒 Honeypot (anti-spam)
+                if (data.company_website) {
+                    console.warn('Bot detected');
+                    return;
+                }
+
+                // ✅ JavaScript validation
+                const name = (data.name || '').trim();
+                const email = (data.email || '').trim();
+                const phone = (data.phone || '').trim();
+
+                if (!name) {
+                    alert('Please enter your full name.');
+                    form.querySelector('#name').focus();
+                    throw new Error('Invalid name');
+                }
+
+                if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                    alert('Please enter a valid email address.');
+                    form.querySelector('#email').focus();
+                    throw new Error('Invalid email');
+                }
+
+                if (!phone || !/^[0-9()+ \-]{7,}$/.test(phone)) {
+                    alert('Please enter a valid phone number using digits, spaces, parentheses, plus signs, or dashes.');
+                    form.querySelector('#phone').focus();
+                    throw new Error('Invalid phone');
+                }
+
+                // 🧠 Add tracking data
+                formData.append('source', 'OCFO Landing Page');
+                formData.append('timestamp', new Date().toISOString());
+                formData.append('userAgent', navigator.userAgent);
+
+                // ⏱️ Timeout handling (10s)
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+
+                const response = await fetch('https://hooks.zapier.com/hooks/catch/23918850/uvfetmj/', {
+                    method: 'POST',
+                    body: formData,
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeout);
+
+                if (!response.ok) {
+                    const errorText = await response.text().catch(() => 'Unable to read response body');
+                    console.error('Zapier webhook error body:', errorText);
+                    throw new Error('Network response was not ok');
+                }
+
+                // 📊 Optional tracking (safe fallback)
+                if (typeof gtag === 'function') {
+                    gtag('event', 'lead_submit', {
+                        method: 'landing_page_form'
+                    });
+                }
+
+                // ✅ Success state
+                form.style.display = 'none';
+                if (thankYou) {
+                    thankYou.style.display = 'block';
+                    thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+
+                const checkInIntro = document.getElementById('checkInIntro');
+                if (checkInIntro) checkInIntro.style.display = 'none';
+
             } catch (error) {
                 console.error('Submission failed:', error);
+
+                alert('Something went wrong. Please try again.');
+
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Request Your Free Call';
             }
-
-            form.style.display = 'none';
-            thankYou.style.display = 'block';
-
-            // Hide the check-in intro text
-            var checkInIntro = document.getElementById('checkInIntro');
-            if (checkInIntro) checkInIntro.style.display = 'none';
-
-            // Ensure user sees confirmation
-            thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     }
 
