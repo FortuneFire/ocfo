@@ -397,7 +397,7 @@ header {
     text-align: center;
     background: var(--cf-navy-blue);
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: transform 0.2s;
 }
 
@@ -873,7 +873,7 @@ footer {
     .step {
         width: 100%;
         max-width: 100%;
-        padding-bottom: 24px;
+        /* padding-bottom: 24px; */
     }
 
     .step p {
